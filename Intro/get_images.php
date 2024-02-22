@@ -17,8 +17,11 @@ echo $imagesHtml;
 // Path to the images folder
 $imagesPath = 'images/';
 
-// Get all image filenames from the images folder
-$imageFiles = glob($imagesPath . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+// Get search term from GET request
+$searchTerm = isset($_GET['searchTerm']) ? $_GET['searchTerm'] : '';
+
+// Get all image filenames from the images folder that contain the search term
+$imageFiles = glob($imagesPath . '*' . $searchTerm . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
 
 // Initialize the HTML content
 $imagesHtml = '';

@@ -9,15 +9,19 @@
 </head>
 <body>
 <h1>Dynamic Image Retrieval</h1>
+<label for="searchTerm">Search Term:</label>
+<input type="text" id="searchTerm" name="searchTerm">
 <button id="retrieveImages">Retrieve Images</button>
 <div id="imageContainer"></div>
 
 <script>
 $(document).ready(function() {
   $('#retrieveImages').click(function() {
+    var searchTerm = $('#searchTerm').val();
     $.ajax({
       url: 'get_images.php',
       type: 'GET',
+      data: { searchTerm: searchTerm },
       dataType: 'html',
       success: function(response) {
         $('#imageContainer').html(response);
