@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dynamic Image Retrieval</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <h1>Dynamic Image Retrieval</h1>
@@ -15,8 +15,11 @@
 <div id="imageContainer"></div>
 
 <script>
-$(document).ready(function() {
-  $('#retrieveImages').click(function() {
+$(document).ready(retrieveImages);
+  
+
+  function retrieveImages(){
+    $('#retrieveImages').click(function() {
     var searchTerm = $('#searchTerm').val();
     $.ajax({
       url: 'get_images.php',
@@ -31,7 +34,7 @@ $(document).ready(function() {
       }
     });
   });
-});
+  }
 </script>
 
 </body>

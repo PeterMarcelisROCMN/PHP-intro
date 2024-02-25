@@ -15,7 +15,7 @@ echo $imagesHtml;
 */
 
 // Path to the images folder
-$imagesPath = 'images/';
+$imagesPath = '../images/';
 
 // Get search term from GET request
 $searchTerm = isset($_GET['searchTerm']) ? $_GET['searchTerm'] : '';
@@ -30,7 +30,7 @@ $imagesHtml = '';
 foreach ($imageFiles as $imageFile) {
     // Get the image filename without the path
     $imageName = basename($imageFile);
-    // Generate HTML for the image
+    // Generate HTML for the image and append it to the HTML string
     $imagesHtml .= '<img src="' . $imagesPath . $imageName . '" alt="' . $imageName . '">';
 }
 
