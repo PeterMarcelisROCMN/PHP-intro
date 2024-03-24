@@ -47,7 +47,7 @@ class Message {
     }
 
     // Method to retrieve the message(s) from the a CSV file
-    public static function getAllMessagesFromCSV($filename) {
+    private static function getAllMessagesFromCSV($filename) {
         $messages = [];
 
         if (($handle = fopen($filename, "r")) !== FALSE) {
@@ -71,8 +71,25 @@ class Message {
         return $messages;
     }
 
+    private static function getAllMessagesFromJSON($filename) {
+        $messages = [];
+
+        $json = file_get_contents($filename);
+        $data = json_decode($json, true);
+
+        if($data){
+            foreach ($data as $message) {
+                $messageObject = new Message($message['message_id'], $message['author'], $message['message'], $message['timeStamp']);
+                $messages[] = $messageObject;
+            }
+        }
+
+        return $messages;
+    }
+
     public static function getFilteredMessages($filename, $author) {
         $messages =  self::getAllMessagesFromCSV($filename);
+        // $messages =  self::getAllMessagesFromJSON($filename);
     
         if ($author === null) {
             return $messages;

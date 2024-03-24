@@ -4,6 +4,7 @@ require_once 'models/message.php';
 require_once 'views/messageView.php';
 
 $filename = "files/csv-files/messages.csv";
+// $filename = "files/json-files/messages.json";
 // Get filter criteria from the form
 $authorFilter = isset($_GET['author']) ? $_GET['author'] : null;
 $messages = Message::getFilteredMessages($filename, $authorFilter);
