@@ -1,6 +1,8 @@
 <?php
 // Path to the images folder
-$imagesPath = '../images/';
+$imagesPath =  '../images/';
+
+// echo $imagesPath;
 
 // Get search term from GET request
  $searchTerm = isset($_GET['searchTerm']) ? $_GET['searchTerm'] : '';
