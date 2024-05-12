@@ -12,7 +12,6 @@
     <button type="submit">Retrieve Images</button>
 </form>
 
-
 <div id="imageContainer">
     <?php 
     // Check if both the button is clicked and searchTerm is set

@@ -63,8 +63,8 @@ if(array_key_exists('category', $_GET) && !empty($_GET['category'])) {
     $query->execute();
 
     // standaard fetch all en echo naar json
-    // $products = $query->fetchAll();
-    // echo json_encode($products);
+    $products = $query->fetchAll();
+    echo json_encode($products);
 
     $rowCount = $query->rowCount();
     $productArray = array();
