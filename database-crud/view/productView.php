@@ -32,7 +32,7 @@ class ProductView
             echo '<div class="product">';
             echo '<h2>' . $productData['naam'] . '</h2>';
             echo '<p>' . $productData['beschrijving'] . '</p>';
-            echo '<img src="' . $productData['afbeelding'] . '" alt="' . $productData['naam'] . '">';
+            echo '<img src="assets/images/' . $productData['afbeelding'] . '" alt="' . $productData['naam'] . '" style="max-width: 100px;">';
             echo '<p>Prijs: €' . $productData['prijs'] . '</p>';
             echo '</div>';
         }
