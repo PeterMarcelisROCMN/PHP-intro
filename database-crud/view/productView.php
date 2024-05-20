@@ -1,9 +1,7 @@
 <?php
-
 class ProductView
 {
     private $products;
-
 
     public function __construct($products)
     {
@@ -12,7 +10,6 @@ class ProductView
 
     public function generateView()
     {
-
         echo '<div class="product-container">';
         foreach ($this->products as $product) {
             // Generate HTML markup for each product
@@ -24,6 +21,5 @@ class ProductView
             echo '</div>';
         }
         echo '</div>'; // Close product-container div
-
     }
 }

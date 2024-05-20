@@ -2,8 +2,6 @@
 
 class ProductController
 {
-    // maak een DB connectie aan
-
     public function __construct()
     {
         try {
@@ -12,28 +10,20 @@ class ProductController
             echo $e->getMessage();
         }
 
-        if (array_key_exists('category', $_GET) && !empty($_GET['category'])) {
+        if (array_key_exists('category', $_GET)) {
             // haal producten op die bij een categorie horen
-
-            try {
-                $products = Product::getProductByCategory($db, $_GET['category']);
+            $category = !empty($_GET['category']) ? $_GET['category'] : null;
+                $products = Product::getProductByCategory($db, $category);
                 $productView = new ProductView($products);
                 $productView->generateView();
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            } catch (ProductException $e) {
-                echo $e->getMessage();
-            }
         } else {
-            // haal alle producten op
-            try {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                Product::addNewProduct($db, $_POST['naam'], $_POST['beschrijving'], $_POST['afbeelding'], $_POST['prijs']);
+            } else if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+                // haal alle producten op
                 $products = Product::getAllProducts($db);
                 $productView = new ProductView($products);
                 $productView->generateView();
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            } catch (ProductException $e) {
-                echo $e->getMessage();
             }
         }
     }
