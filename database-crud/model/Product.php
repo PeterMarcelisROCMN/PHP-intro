@@ -10,11 +10,11 @@ class Product {
     private $prijs;
 
     public function __construct($id, $naam, $beschrijving = null, $afbeelding = null, $prijs) {
-        $this->id = $id;
-        $this->naam = $naam;
-        $this->beschrijving = $beschrijving;
-        $this->afbeelding = $afbeelding;
-        $this->prijs = $prijs;
+        $this->setId($id);
+        $this->setNaam($naam);
+        $this->setBeschrijving($beschrijving);
+        $this->setAfbeelding($afbeelding);
+        $this->setPrijs($prijs);
     }
 
     // Getters and Setters for all properties
@@ -69,5 +69,41 @@ class Product {
         $product['prijs'] = $this->prijs;
 
         return $product;
+    }
+
+    public static function getAllProducts($db) {
+        $query = $db->prepare('SELECT id, naam, beschrijving, afbeelding, prijs FROM producten');
+        $query->execute();
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+        $products = [];
+        
+        foreach ($results as $row) {
+            $products[] = new Product($row['id'], $row['naam'], $row['beschrijving'], $row['afbeelding'], $row['prijs']);
+        }
+
+        return $products;
+    }
+
+    // get product by category
+    public static function getProductByCategory($db, $category) {
+        $query = $db->prepare('SELECT p.id, p.naam, p.beschrijving, p.afbeelding, p.prijs
+        FROM producten p
+        INNER JOIN producten_categories pc ON p.id = pc.productid
+        INNER JOIN categories c ON pc.categorieid = c.id
+        WHERE c.naam = :categorieNaam');
+
+        $query->bindParam(':categorieNaam', $category);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $products = [];
+
+        foreach ($results as $row) {
+            $products[] = new Product($row['id'], $row['naam'], $row['beschrijving'], $row['afbeelding'], $row['prijs']);
+        }
+
+        return $products;
     }
 }

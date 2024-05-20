@@ -1,3 +1,6 @@
+<?php
+include 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +17,7 @@
 
 <div id="imageContainer">
     <?php 
-    // Check if both the button is clicked and searchTerm is set
-    if (isset($_GET['category'])) {
-        // PHP code to retrieve images
-        include 'controller/productController.php';
-    }
-    // } else {
-    //     include 'controller/productController.php';
-    // }
+      $productController = new ProductController();
     ?>
-    
 </body>
 </html>
