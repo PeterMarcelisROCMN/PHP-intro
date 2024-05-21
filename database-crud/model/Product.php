@@ -135,6 +135,29 @@ class Product
         }
     }
 
+    public static function searchProducts($db, $searchTerm)
+    {
+        try {
+            $query = $db->prepare('SELECT id, naam, beschrijving, afbeelding, prijs FROM producten WHERE naam LIKE :searchTerm');
+            $query->bindValue(':searchTerm', '%' . $searchTerm . '%');
+            $query->execute();
+
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $products = [];
+
+            foreach ($results as $row) {
+                $products[] = new Product($row['id'], $row['naam'], $row['beschrijving'], $row['afbeelding'], $row['prijs']);
+            }
+
+            return $products;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        } catch (ProductException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public static function addNewProduct($db, $naam, $beschrijving, $afbeelding, $prijs)
     {
         try {
