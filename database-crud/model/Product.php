@@ -114,12 +114,7 @@ class Product
     public static function getProductByCategory($db, $category)
     {
         try {
-            $query = $db->prepare('SELECT p.id, p.naam, p.beschrijving, p.afbeelding, p.prijs
-            FROM producten p
-            INNER JOIN producten_categories pc ON p.id = pc.productid
-            INNER JOIN categories c ON pc.categorieid = c.id
-            WHERE c.naam = :categorieNaam');
-
+            $query = $db->prepare('SELECT id, naam, beschrijving, afbeelding, prijs FROM producten WHERE categorie = :categorieNaam');
             $query->bindParam(':categorieNaam', $category);
             $query->execute();
 
