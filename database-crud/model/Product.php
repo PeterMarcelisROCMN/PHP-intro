@@ -1,9 +1,5 @@
 <?php
 
-class ProductException extends Exception
-{
-}
-
 class Product
 {
     private $id;
@@ -12,7 +8,7 @@ class Product
     private $afbeelding;
     private $prijs;
 
-    public function __construct($id, $naam, $beschrijving = null, $afbeelding = null, $prijs)
+    public function __construct($id, $naam, $prijs, $beschrijving = null, $afbeelding = null, )
     {
         $this->setId($id);
         $this->setNaam($naam);
@@ -60,6 +56,11 @@ class Product
     public function setAfbeelding($afbeelding)
     {
         $this->afbeelding = $afbeelding;
+
+        // check hier of het en png is
+        // check hier of het bestand te groot is
+        // check hier of het bestand al bestaat
+        // throw new ProductException('Afbeelding moet een png zijn.');
     }
 
     public function getPrijs()
@@ -99,7 +100,7 @@ class Product
             $products = [];
 
             foreach ($results as $row) {
-                $products[] = new Product($row['id'], $row['naam'], $row['beschrijving'], $row['afbeelding'], $row['prijs']);
+                $products[] = new Product($row['id'], $row['naam'], $row['prijs'], $row['beschrijving'], $row['afbeelding']);
             }
 
             return $products;
@@ -123,7 +124,7 @@ class Product
             $products = [];
 
             foreach ($results as $row) {
-                $products[] = new Product($row['id'], $row['naam'], $row['beschrijving'], $row['afbeelding'], $row['prijs']);
+                $products[] = new Product($row['id'], $row['naam'], $row['prijs'], $row['beschrijving'], $row['afbeelding']);
             }
 
             return $products;
@@ -147,10 +148,28 @@ class Product
             $products = [];
 
             foreach ($results as $row) {
-                $products[] = new Product($row['id'], $row['naam'], $row['beschrijving'], $row['afbeelding'], $row['prijs']);
+                $products[] = new Product($row['id'], $row['naam'], $row['prijs'], $row['beschrijving'], $row['afbeelding']);
             }
 
             return $products;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        } catch (ProductException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function getProductById($db, $productId){
+        try {
+            $query = $db->prepare('SELECT id, naam, beschrijving, afbeelding, prijs FROM producten WHERE id = :id');
+            $query->bindParam(':id', $productId);
+            $query->execute();
+
+            $results = $query->fetch(PDO::FETCH_ASSOC);
+            
+            $product = new Product($results['id'], $results['naam'], $results['prijs'], $results['beschrijving'], $results['afbeelding']);
+
+            return $product;
         } catch (PDOException $e) {
             echo $e->getMessage();
         } catch (ProductException $e) {
@@ -162,7 +181,7 @@ class Product
     {
         try {
             // probeer een nieuw product aan te maken. Als dit niet lukt, geef een foutmelding.
-            $newProduct = new Product(null, $naam, $beschrijving, $afbeelding, $prijs);
+            $newProduct = new Product(null, $naam, $prijs, $beschrijving, $afbeelding);
 
             $naam = $newProduct->getNaam();
             $beschrijving = $newProduct->getBeschrijving();
@@ -202,4 +221,7 @@ class Product
             echo $e->getMessage();
         }
     }
+}
+class ProductException extends Exception
+{
 }

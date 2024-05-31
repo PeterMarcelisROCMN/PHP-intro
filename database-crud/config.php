@@ -7,7 +7,8 @@ spl_autoload_register(function ($class_name) {
     $dirs = [
         'controller/',
         'model/',
-        'view/'
+        'view/',
+        'handler/',
     ];
 
     foreach ($dirs as $dir) {
