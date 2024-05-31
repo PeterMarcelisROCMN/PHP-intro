@@ -34,6 +34,34 @@ class cartHandler
         $this->displayCart();
     }
 
+    public function removeFromCart($productId)
+    {
+        if (isset($_SESSION['cart'][$productId])) {
+            // Remove the product from the cart
+            unset($_SESSION['cart'][$productId]);
+        }
+
+        $this->displayCart();
+    }
+
+    public function updateCart($productId, $direction)
+    {
+        if (isset($_SESSION['cart'][$productId])) {
+            if ($direction === 'plus') {
+                $_SESSION['cart'][$productId]['quantity']++;
+            } else if ($direction === 'min') {
+                if ($_SESSION['cart'][$productId]['quantity'] > 1) {
+                    $_SESSION['cart'][$productId]['quantity']--;
+                } else {
+                    // Remove the product from the cart
+                    unset($_SESSION['cart'][$productId]);
+                }
+            }
+        }
+
+        $this->displayCart();
+    }
+
     public function displayCart()
     {
         // print_r($_SESSION['cart']);
@@ -45,7 +73,7 @@ class cartHandler
                 // echo '</pre>';
                 // var_dump($item);
 
-                
+
                 $product = $item['product'];
                 $quantity = $item['quantity'];
                 $cost = $product->getPrijs() * $quantity;
@@ -58,6 +86,9 @@ class cartHandler
                 echo '</div>';
                 echo '<p>Aantal: ' . $quantity . '</p>';
                 echo '<p>totaalprijs: €' . $cost . '</p>';
+                echo '<button class="remove-from-cart" data-id="' . $product->getId() . '">verwijder</button>';
+                echo '<button class="update-cart" data-id="' . $product->getId() . '" data-direction="min">min</button>';
+                echo '<button class="update-cart" data-id="' . $product->getId() . '" data-direction="plus">plus</button>';
                 echo '</div>';
             }
         } else {

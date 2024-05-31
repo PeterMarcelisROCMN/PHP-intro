@@ -40,29 +40,7 @@ include 'config.php';
             ?>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            $('.add-to-cart').on('click', function(event) {
-                event.preventDefault();
-
-                var formData = new FormData();
-                formData.append('id', $(this).data('id'));
-
-                fetch('controller/cartController.php', {
-                    method: 'POST',
-                    contentType: 'form-data',
-                    body: formData,
-                }).then(function(response){
-                    return response.text();
-                }).then(function(data){
-                    // replace the contents of the current cart with the updated information
-                    $('#cart-items').html(data);
-                }).catch(function(error){
-                    console.error(error);
-            });
-                });
-            });
-    </script>
+    <script src="cartHandle.js"></script>
 </body>
 
 </html>
