@@ -1,0 +1,4 @@
+RewriteEngine On
+# rewrite every single url to index.php
+RewriteBase /php-stuff-updated/mvc-basics/
+RewriteRule ^ index.php
