@@ -34,7 +34,7 @@ include 'config.php';
                 ?>
             </div>
         </div>
-        <div id="imageContainer">
+        <div id="image-container">
             <?php
             include 'controller/productController.php';
             ?>

@@ -86,9 +86,11 @@ class cartHandler
                 echo '</div>';
                 echo '<p>Aantal: ' . $quantity . '</p>';
                 echo '<p>totaalprijs: €' . $cost . '</p>';
-                echo '<button class="remove-from-cart" data-id="' . $product->getId() . '">verwijder</button>';
-                echo '<button class="update-cart" data-id="' . $product->getId() . '" data-direction="min">min</button>';
-                echo '<button class="update-cart" data-id="' . $product->getId() . '" data-direction="plus">plus</button>';
+                echo '<div class="cart-items-container">';
+                echo '<button class="cart-button remove-from-cart" data-id="' . $product->getId() . '">verwijder</button>';
+                echo '<button class="cart-button update-cart" data-id="' . $product->getId() . '" data-direction="min">min</button>';
+                echo '<button class="cart-button update-cart" data-id="' . $product->getId() . '" data-direction="plus">plus</button>';
+                echo '</div>';
                 echo '</div>';
             }
         } else {

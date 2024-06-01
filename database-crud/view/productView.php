@@ -21,7 +21,7 @@ class ProductView
                 echo '<p>' . $product->getBeschrijving() . '</p>';
                 echo '<img src="assets/images/' . $product->getAfbeelding() . '" alt="' . $product->getNaam() . '" style="max-width: 100px;">';
                 echo '<p>Prijs: €' . $product->getPrijs() . '</p>';
-                echo '<button class="cart-button add-to-cart" data-id="' . $product->getId() . '">Toevoegen aan winkelwagen</button>';
+                echo '<button class="product-button add-to-cart" data-id="' . $product->getId() . '">Toevoegen aan winkelwagen</button>';
                 echo '</div>';
             }
         }

@@ -89,6 +89,9 @@ body {
     justify-content: center;
     padding: 20px;
     background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .product {
@@ -130,13 +133,32 @@ body {
     font-weight: bold;
 }
 
-.cart-button {
+.product-button {
     padding: 10px 15px;
     background-color: #e91e63;
     color: #fff;
     border: none;
     border-radius: 5px;
     font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.cart-items-container {
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    gap: 2px;
+}
+
+.cart-button {
+    display: flex;
+    padding: 5px 5px;
+    background-color: #e91e63;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
     cursor: pointer;
     transition: background-color 0.2s;
 }
