@@ -6,11 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-
-
-
-
-
 <form method="get" action="">
     <label for="category">Search Term:</label>
     <input type="text" id="category" name="category">
